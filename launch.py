@@ -17,9 +17,8 @@ def generate_launch_description():
         Node(
             package='controller_manager',
             executable='spawner',
-            arguments=['test.cpp'],
+            arguments=['rack_pinion_controller'],
             output='screen',
         ),
         ),
     ])
-
