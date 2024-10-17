@@ -1,0 +1,7 @@
+rack_pinion_controller:
+  type: ackermann_steering_controller/RackPinionController
+  front_steer_joints:
+    - rack_pinion_joint
+  wheel_radius: 0.3
+  track_width: 1.2
+  radius_rotation: 1 # пытаюсь понять как сделать так, чтобы приходил радиус с стмки
