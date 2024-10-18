@@ -13,7 +13,7 @@ def generate_launch_description():
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
-            parameters=[{'robot_description': 'robot_urdf/urdf/robot_urdf.urdf'}],
+            parameters=[{'robot_description': 'example_11/description/urdf/carlikebot.urdf.xarco'}],
             output='screen',
         ),
         Node(
