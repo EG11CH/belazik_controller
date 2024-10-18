@@ -1,4 +1,4 @@
-#include "ackermann_steering_controller/ackermann_steering_controller.hpp"
+#include "ackermann_steering_controller.hpp"
 
 namespace ackermann_steering_controller {
 
@@ -7,8 +7,8 @@ AckermannSteeringController::AckermannSteeringController()
 
 void AckermannSteeringController::initialize_implementation_parameter_listener() {
   ackermann_param_listener_ = std::make_shared<ackermann_steering_controller::ParamListener>(get_node());
-  // динамический параметр
-  this->declare_parameter<double>("radius_rotation", 1);
+  //динамический параметр
+  this->declare_parameter<double>("radius_rotation", 1.0);
 }
 
 controller_interface::CallbackReturn AckermannSteeringController::configure_odometry() {
@@ -33,7 +33,7 @@ controller_interface::CallbackReturn AckermannSteeringController::configure_odom
 }
 
 bool AckermannSteeringController::update_odometry(const rclcpp::Duration & period) {
-  // значение параметра
+  // получаем значение параметра
   double radius_rotation = this->get_parameter("radius_rotation").as_double();
 
   if (params_.open_loop) {
@@ -62,7 +62,7 @@ bool AckermannSteeringController::update_odometry(const rclcpp::Duration & perio
 
 // функция для вычисления позиции рейки
 double AckermannSteeringController::calculate_rack_position(double right_pos, double left_pos, double radius_rotation) {
-  // матеша
+  // логика расчета
 }
 
 }  // namespace ackermann_steering_controller
