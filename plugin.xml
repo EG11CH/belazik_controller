@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<library path="lib/librack_pinion_controller.so">
+  <class name="rack_pinion_controller/RackPinionController"
+         type="rack_pinion_controller::RackPinionController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      A rack and pinion controller for ackermann steering.
+    </description>
+    <parameters>
+      <parameter name="front_steer_joints" type="string[]" default="rack_pinion_joint">
+        The joint that connects to the front steering.
+      </parameter>
+      <parameter name="wheel_radius" type="double" default="0.3">
+        The radius of the wheel in meters.
+      </parameter>
+      <parameter name="track_width" type="double" default="1.2">
+        The width between the front wheels in meters.
+      </parameter>
+      <parameter name="radius_rotation" type="double" default="1.0">
+        The radius of rotation in meters.
+      </parameter>
+    </parameters>
+  </class>
+</library>
