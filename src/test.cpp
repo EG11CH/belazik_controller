@@ -1,4 +1,4 @@
-#include "ackermann_steering_controller/ackermann_steering_controller.hpp"
+#include "rack_pinion_controller/ackermann_steering_controller.hpp"
 
 namespace ackermann_steering_controller {
 
@@ -6,8 +6,11 @@ AckermannSteeringController::AckermannSteeringController()
 : steering_controllers_library::SteeringControllersLibrary() {}
 
 void AckermannSteeringController::initialize_implementation_parameter_listener() {
-  ackermann_param_listener_ = std::make_shared<ackermann_steering_controller::ParamListener>(get_node());
-  get_node()->declare_parameter<double>("radius_rotation", 1.0);
+  auto node = this->get_node();
+  ackermann_param_listener_ = std::make_shared<ackermann_steering_controller::ParamListener>(node);
+  
+  // декларация параметра через узел
+  node->declare_parameter<double>("radius_rotation", 1.0);
 }
 
 controller_interface::CallbackReturn AckermannSteeringController::configure_odometry() {
@@ -26,13 +29,17 @@ controller_interface::CallbackReturn AckermannSteeringController::configure_odom
 
   odometry_.set_odometry_type(steering_odometry::ACKERMANN_CONFIG);
   set_interface_numbers(NR_STATE_ITFS, NR_CMD_ITFS, NR_REF_ITFS);
-  RCLCPP_INFO(get_node()->get_logger(), "ackermann odom configure successful");
+  
+  auto node = this->get_node();
+  RCLCPP_INFO(node->get_logger(), "Ackermann odometry configuration successful");
 
   return controller_interface::CallbackReturn::SUCCESS;
 }
 
 bool AckermannSteeringController::update_odometry(const rclcpp::Duration & period) {
-  double radius_rotation = get_node()->get_parameter("radius_rotation").as_double();
+  // получаем значение параметра через узел
+  auto node = this->get_node();
+  double radius_rotation = node->get_parameter("radius_rotation").as_double();
 
   if (params_.open_loop) {
     odometry_.update_open_loop(last_linear_velocity_, last_angular_velocity_, period.seconds());
@@ -44,8 +51,8 @@ bool AckermannSteeringController::update_odometry(const rclcpp::Duration & perio
 
     if (std::isfinite(traction_right_wheel_value) && std::isfinite(traction_left_wheel_value) && 
         std::isfinite(steering_right_position) && std::isfinite(steering_left_position)) {
-      // Вызов функции calculate_rack_position
-      double rack_position = calculate_rack_position(steering_right_position, steering_left_position, radius_rotation);
+      
+      double rack_position = this->calculate_rack_position(steering_right_position, steering_left_position, radius_rotation);
 
       if (params_.position_feedback) {
         odometry_.update_from_position(
@@ -59,10 +66,9 @@ bool AckermannSteeringController::update_odometry(const rclcpp::Duration & perio
   return true;
 }
 
-// Объявление функции перед реализацией
+// функция для вычисления позиции рейки
 double AckermannSteeringController::calculate_rack_position(double right_pos, double left_pos, double radius_rotation) {
-  // Логика расчета
-  return 0.0; // Замените на реальную логику
+  return 0.0;
 }
 
 }  // namespace ackermann_steering_controller
