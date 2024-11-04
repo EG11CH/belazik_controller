@@ -10,3 +10,6 @@ rack_pinion_controller:
     wheel_radius: 0.3
     track_width: 1.2
     radius_rotation: 1.0
+    front_wheel_track: 1.2
+    rear_wheel_track: 1.2
+    wheelbase: 1.5
