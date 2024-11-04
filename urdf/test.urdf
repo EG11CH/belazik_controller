@@ -1,6 +1,13 @@
 <?xml version="1.0" ?>
 <robot name="belaaaaaaaaaaaaaaaaaaaaaaazik">
 
+  <link name="odom"/>
+
+  <joint name="odom_to_base" type="fixed">
+    <parent link="odom"/>
+    <child link="base_link"/>
+  </joint>
+
   <link name="base_link">
     <visual>
       <geometry>
@@ -56,7 +63,7 @@
     </visual>
   </link>
 
-  <joint name="joint_front_left" type="revolute">
+  <joint name="rack_pinion_joint" type="revolute">
     <parent link="base_link"/>
     <child link="wheel_front_left"/>
     <origin xyz="0.4 0.25 0.1" rpy="0 0 0"/>
@@ -67,19 +74,19 @@
   <joint name="joint_front_right" type="revolute">
     <parent link="base_link"/>
     <child link="wheel_front_right"/>
-    <origin xyz="0.4 -0.25 0.1"/>
+    <origin xyz="0.4 -0.25 0.1" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
     <limit effort="10.0" lower="-1.57" upper="1.57" velocity="1.0"/>
   </joint>
 
-  <joint name="joint_rear_left" type="continuous">
+  <joint name="wheel_rear_left" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_rear_left"/>
     <origin xyz="-0.4 0.25 0.1"/>
     <axis xyz="0 0 1"/>
   </joint>
 
-  <joint name="joint_rear_right" type="continuous">
+  <joint name="wheel_rear_right" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_rear_right"/>
     <origin xyz="-0.4 -0.25 0.1"/>
